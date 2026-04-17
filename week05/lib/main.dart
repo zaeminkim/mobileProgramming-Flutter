@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // 1. 패키지 임포트
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:http/http.dart';
+// flutter_native_splash package
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() => runApp(const MyApp());
 
