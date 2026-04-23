@@ -1,121 +1,521 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pie_menu/pie_menu.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+extension ContextExtension on BuildContext {
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(this).removeCurrentSnackBar();
+    ScaffoldMessenger.of(this).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 2)),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+void launchUrlExternally(String url) {
+  launchUrlString(url, mode: LaunchMode.externalApplication);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+    ),
+  );
+  runApp(const ExampleApp());
+}
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class ExampleApp extends StatelessWidget {
+  const ExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Pie Menu',
+      home: const HomePage(),
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+        textTheme: const TextTheme().apply(fontFamily: 'Poppins'),
+        snackBarTheme: const SnackBarThemeData(
+          contentTextStyle: TextStyle(
+            fontFamily: 'Poppins',
+            color: Colors.white,
+          ),
+        ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var _navigationIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return PieCanvas(
+      theme: const PieTheme(
+        rightClickShowsMenu: true,
+        tooltipTextStyle: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Flutter Pie Menu 🥧',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
+        body: IndexedStack(
+          index: _navigationIndex,
+          children: const [StylingPage(), ListViewPage(), AboutPage()],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _navigationIndex,
+          onTap: (index) => setState(() => _navigationIndex = index),
+          items: const [
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.palette),
+              label: 'Styling',
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.list),
+              label: 'ListView',
+            ),
+            BottomNavigationBarItem(
+              icon: FaIcon(FontAwesomeIcons.circleInfo),
+              label: 'About',
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+//* different styles *//
+class StylingPage extends StatelessWidget {
+  const StylingPage({super.key});
+
+  static const double spacing = 20;
+
+  @override
+  Widget build(BuildContext context) {
+    return PieCanvas(
+      theme: const PieTheme(
+        regularPressShowsMenu: true,
+        tooltipTextStyle: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+      ),
+      child: Builder(
+        builder: (context) {
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(spacing),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: PieMenu(
+                            actions: [
+                              PieAction(
+                                tooltip: const Text('Play'),
+                                onSelect: () => context.showSnackBar('Play'),
+
+                                /// Optical correction
+                                child: const Padding(
+                                  padding: EdgeInsets.only(left: 4),
+                                  child: FaIcon(FontAwesomeIcons.play),
+                                ),
+                              ),
+                              PieAction(
+                                tooltip: const Text('Like'),
+                                onSelect: () => context.showSnackBar('Like'),
+                                child: const FaIcon(
+                                  FontAwesomeIcons.solidThumbsUp,
+                                ),
+                              ),
+                              PieAction(
+                                tooltip: const Text('Share'),
+                                onSelect: () => context.showSnackBar('Share'),
+                                child: const FaIcon(FontAwesomeIcons.share),
+                              ),
+                            ],
+                            child: _buildCard(
+                              color: Colors.orangeAccent,
+                              iconData: FontAwesomeIcons.solidSun,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: spacing),
+                        Expanded(
+                          child: PieMenu(
+                            theme: PieTheme.of(context).copyWith(
+                              buttonTheme: const PieButtonTheme(
+                                backgroundColor: Colors.deepOrange,
+                                iconColor: Colors.white,
+                              ),
+                              buttonThemeHovered: const PieButtonTheme(
+                                backgroundColor: Colors.orangeAccent,
+                                iconColor: Colors.black,
+                              ),
+                              brightness: Brightness.dark,
+                            ),
+                            actions: [
+                              PieAction.builder(
+                                tooltip: const Text('how'),
+                                onSelect: () => context.showSnackBar('1'),
+                                builder: (hovered) {
+                                  return _buildTextButton('1', hovered);
+                                },
+                              ),
+                              PieAction.builder(
+                                tooltip: const Text('cool'),
+                                onSelect: () => context.showSnackBar('2'),
+                                builder: (hovered) {
+                                  return _buildTextButton('2', hovered);
+                                },
+                              ),
+                              PieAction.builder(
+                                tooltip: const Text('is'),
+                                onSelect: () => context.showSnackBar('3'),
+                                builder: (hovered) {
+                                  return _buildTextButton('3', hovered);
+                                },
+                              ),
+                              PieAction.builder(
+                                tooltip: const Text('this?!'),
+                                onSelect:
+                                    () =>
+                                    context.showSnackBar('Pretty cool :)'),
+                                builder: (hovered) {
+                                  return _buildTextButton('4', hovered);
+                                },
+                              ),
+                            ],
+                            child: _buildCard(
+                              color: Colors.deepPurple,
+                              iconData: FontAwesomeIcons.solidMoon,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: spacing),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: PieMenu(
+                            theme: PieTheme.of(context).copyWith(
+                              tooltipTextStyle: const TextStyle(
+                                color: Colors.white,
+                              ),
+                              overlayColor: Colors.teal.withValues(alpha: 0.7),
+                              pointerSize: 40,
+                              pointerDecoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red.withValues(alpha: 0.5),
+                              ),
+                              buttonTheme: const PieButtonTheme(
+                                backgroundColor: Colors.black,
+                                iconColor: Colors.white,
+                              ),
+                              buttonThemeHovered: const PieButtonTheme(
+                                backgroundColor: Colors.white,
+                                iconColor: Colors.black,
+                              ),
+                              buttonSize: 84,
+                              leftClickShowsMenu: false,
+                              rightClickShowsMenu: true,
+                            ),
+                            onPressedWithDevice: (kind) {
+                              if (kind == PointerDeviceKind.mouse) {
+                                context.showSnackBar(
+                                  'Right click to show the menu',
+                                );
+                              }
+                            },
+                            actions: [
+                              PieAction(
+                                tooltip: const Text('Available on pub.dev'),
+                                onSelect: () {
+                                  launchUrlExternally(
+                                    'https://pub.dev/packages/pie_menu',
+                                  );
+                                },
+                                child: const FaIcon(FontAwesomeIcons.boxOpen),
+                              ),
+                              PieAction(
+                                tooltip: const Text('Highly customizable'),
+                                onSelect: () {
+                                  launchUrlExternally(
+                                    'https://pub.dev/packages/pie_menu',
+                                  );
+                                },
+
+                                /// Custom background color
+                                buttonTheme: PieButtonTheme(
+                                  backgroundColor: Colors.black.withValues(
+                                    alpha: 0.7,
+                                  ),
+                                  iconColor: Colors.white,
+                                ),
+                                child: const FaIcon(FontAwesomeIcons.palette),
+                              ),
+                              PieAction(
+                                tooltip: const Text(
+                                  'Now with right click support!',
+                                ),
+                                buttonTheme: PieButtonTheme(
+                                  backgroundColor: Colors.black.withValues(
+                                    alpha: 0.5,
+                                  ),
+                                  iconColor: Colors.white,
+                                ),
+                                onSelect: () {
+                                  launchUrlExternally(
+                                    'https://pub.dev/packages/pie_menu',
+                                  );
+                                },
+                                child: const FaIcon(
+                                  FontAwesomeIcons.computerMouse,
+                                ),
+                              ),
+                            ],
+                            child: _buildCard(
+                              color: Colors.teal,
+                              iconData: FontAwesomeIcons.solidHeart,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // 👇 여기가 수정된 부분입니다! (IconData -> FaIconData)
+  Widget _buildCard({Color? color, required FaIconData iconData}) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Center(child: FaIcon(iconData, color: Colors.white, size: 64)),
+    );
+  }
+
+  Widget _buildTextButton(String text, bool hovered) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: hovered ? Colors.black : Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+}
+
+//* list view example *//
+class ListViewPage extends StatelessWidget {
+  const ListViewPage({super.key});
+
+  static const spacing = 20.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      padding: EdgeInsets.only(
+        top: spacing,
+        bottom: spacing,
+        left: MediaQuery.of(context).padding.left + spacing,
+        right: MediaQuery.of(context).padding.right + spacing,
+      ),
+      physics: const BouncingScrollPhysics(),
+      itemCount: 16,
+      separatorBuilder: (context, index) => const SizedBox(height: spacing),
+      itemBuilder: (context, index) {
+        return SizedBox(
+          height: 200,
+          child: PieMenu(
+            onPressed: () {
+              context.showSnackBar(
+                '#$index — Long press or right click to show the menu',
+              );
+            },
+            actions: [
+              PieAction(
+                tooltip: const Text('Like'),
+                onSelect: () => context.showSnackBar('Like #$index'),
+                child: const FaIcon(FontAwesomeIcons.solidHeart),
+              ),
+              PieAction(
+                tooltip: const Text('Comment'),
+                onSelect: () => context.showSnackBar('Comment #$index'),
+                child: const FaIcon(FontAwesomeIcons.solidComment),
+              ),
+              PieAction(
+                tooltip: const Text('Save'),
+                onSelect: () => context.showSnackBar('Save #$index'),
+                child: const FaIcon(FontAwesomeIcons.solidBookmark),
+              ),
+              PieAction(
+                tooltip: const Text('Share'),
+                onSelect: () => context.showSnackBar('Share #$index'),
+                child: const FaIcon(FontAwesomeIcons.share),
+              ),
+            ],
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.orangeAccent,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Center(
+                child: Text(
+                  '#$index',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 64,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+//* about the developer *//
+class AboutPage extends StatelessWidget {
+  const AboutPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PieCanvas(
+      theme: PieTheme(
+        regularPressShowsMenu: true,
+        tooltipTextStyle: const TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.w600,
+        ),
+        tooltipUseFittedBox: true,
+        buttonTheme: const PieButtonTheme(
+          backgroundColor: Colors.black,
+          iconColor: Colors.white,
+        ),
+        buttonThemeHovered: PieButtonTheme(
+          backgroundColor: Colors.lime[200],
+          iconColor: Colors.black,
+        ),
+        overlayColor: Colors.blue[200]?.withValues(alpha: 0.7),
+        rightClickShowsMenu: true,
+      ),
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FlutterLogo(size: 100),
+                  SizedBox(width: 16),
+                  Text('🥧', style: TextStyle(fontSize: 100, height: 0.8)),
+                ],
+              ),
+              const SizedBox(height: 32),
+              Center(
+                child: PieMenu(
+                  actions: [
+                    PieAction(
+                      tooltip: const Text('github/rasitayaz'),
+                      onSelect: () {
+                        launchUrlExternally('https://github.com/rasitayaz');
+                      },
+                      child: const FaIcon(FontAwesomeIcons.github),
+                    ),
+                    PieAction(
+                      tooltip: const Text('linkedin/rasitayaz'),
+                      onSelect: () {
+                        launchUrlExternally(
+                          'https://linkedin.com/in/rasitayaz/',
+                        );
+                      },
+                      child: const FaIcon(FontAwesomeIcons.linkedinIn),
+                    ),
+                    PieAction(
+                      tooltip: const Text('mrasitayaz@gmail.com'),
+                      onSelect: () {
+                        launchUrlExternally('mailto:mrasitayaz@gmail.com');
+                      },
+                      child: const FaIcon(FontAwesomeIcons.solidEnvelope),
+                    ),
+                    PieAction(
+                      tooltip: const Text('buy me a coffee'),
+                      onSelect: () {
+                        launchUrlExternally(
+                          'https://buymeacoffee.com/rasitayaz',
+                        );
+                      },
+                      child: const FaIcon(FontAwesomeIcons.mugSaucer, size: 20),
+                    ),
+                  ],
+                  child: FittedBox(
+                    child: Container(
+                      padding: const EdgeInsets.all(32),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'created by',
+                            style: TextStyle(color: Colors.white, fontSize: 36),
+                          ),
+                          Text(
+                            'Raşit Ayaz',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 40,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
