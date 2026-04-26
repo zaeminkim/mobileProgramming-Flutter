@@ -1,17 +1,12 @@
-# mini_proj
+# 미니 프로젝트
+(브랜딩, 독창적 아이디어, 많은 사용자를 끌어 모을 수 있는 앱 개발)
 
-A new Flutter project.
+### 프로젝트명: 알고리즘 파괴자
 
-## Getting Started
+내 알고리즘은 안녕하신가?
+나의 알고리즘 분석 -> 오염도(편향도) 체크
 
-This project is a starting point for a Flutter application.
+분석된 리포트를 카드 형태의 이미지로 만들어 인스타그램 스토리에 공유하거나, 앱 내 피드에 올리는 기능입니다. 
+이는 앱의 식별성을 높이는 브랜딩 요소와 직결됨
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+서로의 알고리즘 정체성 공유 및 추천 -> 타인의 알고리즘 탐험

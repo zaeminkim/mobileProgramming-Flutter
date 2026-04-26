@@ -37,7 +37,7 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Pie Menu',
+      title: 'Outfeed',
       home: const HomePage(),
       theme: ThemeData(
         fontFamily: 'Poppins',
