@@ -1,169 +1,92 @@
 import 'package:flutter/material.dart';
 
-/// Outfeed 네온 탈출 디자인 시스템
+/// Outfeed 디자인 시스템 — Apple HIG 미니멀리즘
 class AppColors {
-  // 배경
-  static const deepNavy = Color(0xFF0B0F1A);
-  static const deepNavyLight = Color(0xFF111827);
-  static const cardDark = Color(0xFF141B2D);
-  static const cardDarkLight = Color(0xFF1A2332);
-  static const surfaceDark = Color(0xFF0D1321);
+  AppColors._();
 
-  // 메인 그라디언트 (네온 블루 → 네온 그린)
-  static const neonBlue = Color(0xFF0000FF);
-  static const neonGreen = Color(0xFF00FF00);
+  // Core
+  static const black = Color(0xFF000000);
+  static const white = Color(0xFFFFFFFF);
 
-  // 포인트 컬러
-  static const lime = Color(0xFFC0FF00);
-  static const cyan = Color(0xFF00FFFF);
+  // Surfaces (iOS System Dark)
+  static const surface = Color(0xFF1C1C1E);
+  static const surfaceSecondary = Color(0xFF2C2C2E);
+  static const surfaceTertiary = Color(0xFF3A3A3C);
 
-  // 텍스트
+  // Text
   static const textPrimary = Color(0xFFFFFFFF);
-  static const textSecondary = Color(0xFFB0BEC5);
-  static const textMuted = Color(0xFF546E7A);
+  static const textSecondary = Color(0xFF8E8E93);
+  static const textTertiary = Color(0xFF636366);
 
-  // 네온 글로우 컬러 (약간 투명)
-  static Color neonBlueGlow = neonBlue.withOpacity(0.3);
-  static Color neonGreenGlow = neonGreen.withOpacity(0.3);
-  static Color limeGlow = lime.withOpacity(0.3);
-  static Color cyanGlow = cyan.withOpacity(0.3);
+  // Brand Accent (제한적 사용)
+  static const accentBlue = Color(0xFF0000FF);
+  static const accentGreen = Color(0xFF00FF00);
 
-  // 메인 그라디언트
-  static const mainGradient = LinearGradient(
-    colors: [neonBlue, neonGreen],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
+  // Semantic
+  static const separator = Color(0xFF38383A);
 
-  static const mainGradientHorizontal = LinearGradient(
-    colors: [neonBlue, Color(0xFF0066FF), Color(0xFF00CC66), neonGreen],
+  // Brand Gradient
+  static const brandGradient = LinearGradient(
+    colors: [accentBlue, accentGreen],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-  );
-
-  static const subtleGradient = LinearGradient(
-    colors: [Color(0xFF0033AA), Color(0xFF00AA44)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
   );
 }
 
 class AppTheme {
-  static ThemeData get darkTheme {
+  AppTheme._();
+
+  static ThemeData get dark {
     return ThemeData(
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: AppColors.deepNavy,
-      primaryColor: AppColors.neonBlue,
+      scaffoldBackgroundColor: AppColors.black,
+      primaryColor: AppColors.accentBlue,
+      fontFamily: '.SF Pro Text',
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.neonBlue,
-        secondary: AppColors.neonGreen,
-        surface: AppColors.cardDark,
-        onPrimary: AppColors.textPrimary,
-        onSecondary: AppColors.deepNavy,
+        primary: AppColors.accentBlue,
+        secondary: AppColors.accentGreen,
+        surface: AppColors.surface,
+        onPrimary: AppColors.white,
         onSurface: AppColors.textPrimary,
       ),
-      fontFamily: 'Pretendard',
       textTheme: const TextTheme(
-        displayLarge: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.w800,
-          color: AppColors.textPrimary,
-          letterSpacing: -0.5,
-        ),
-        displayMedium: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-          color: AppColors.textPrimary,
-          letterSpacing: -0.3,
-        ),
-        headlineMedium: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
-        ),
-        titleLarge: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
-        ),
-        titleMedium: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: AppColors.textPrimary,
-        ),
-        bodyLarge: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          color: AppColors.textSecondary,
-        ),
-        bodyMedium: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: AppColors.textSecondary,
-        ),
-        labelLarge: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
-          letterSpacing: 0.5,
-        ),
-        labelSmall: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w500,
-          color: AppColors.textMuted,
-          letterSpacing: 0.5,
-        ),
+        displayLarge: TextStyle(fontSize: 34, fontWeight: FontWeight.w700,
+          color: AppColors.textPrimary, letterSpacing: -0.4),
+        displayMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w700,
+          color: AppColors.textPrimary, letterSpacing: -0.3),
+        headlineLarge: TextStyle(fontSize: 22, fontWeight: FontWeight.w700,
+          color: AppColors.textPrimary),
+        headlineMedium: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary),
+        titleLarge: TextStyle(fontSize: 17, fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary),
+        titleMedium: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary),
+        bodyLarge: TextStyle(fontSize: 17, fontWeight: FontWeight.w400,
+          color: AppColors.textSecondary, height: 1.5),
+        bodyMedium: TextStyle(fontSize: 15, fontWeight: FontWeight.w400,
+          color: AppColors.textSecondary, height: 1.4),
+        bodySmall: TextStyle(fontSize: 13, fontWeight: FontWeight.w400,
+          color: AppColors.textTertiary),
+        labelLarge: TextStyle(fontSize: 15, fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary),
+        labelSmall: TextStyle(fontSize: 11, fontWeight: FontWeight.w500,
+          color: AppColors.textTertiary, letterSpacing: 0.5),
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
+        scrolledUnderElevation: 0,
       ),
-    );
-  }
-}
-
-/// 네온 글로우 박스 데코레이션 유틸
-class NeonDecoration {
-  static BoxDecoration glowBox({
-    Color glowColor = AppColors.neonBlue,
-    double blurRadius = 20,
-    double borderRadius = 16,
-    Color? bgColor,
-  }) {
-    return BoxDecoration(
-      color: bgColor ?? AppColors.cardDark,
-      borderRadius: BorderRadius.circular(borderRadius),
-      border: Border.all(color: glowColor.withOpacity(0.3), width: 1),
-      boxShadow: [
-        BoxShadow(
-          color: glowColor.withOpacity(0.15),
-          blurRadius: blurRadius,
-          spreadRadius: 0,
-        ),
-      ],
-    );
-  }
-
-  static BoxDecoration gradientGlowBox({
-    double borderRadius = 16,
-    double blurRadius = 24,
-  }) {
-    return BoxDecoration(
-      borderRadius: BorderRadius.circular(borderRadius),
-      gradient: AppColors.subtleGradient,
-      boxShadow: [
-        BoxShadow(
-          color: AppColors.neonBlue.withOpacity(0.2),
-          blurRadius: blurRadius,
-          offset: const Offset(-4, 0),
-        ),
-        BoxShadow(
-          color: AppColors.neonGreen.withOpacity(0.2),
-          blurRadius: blurRadius,
-          offset: const Offset(4, 0),
-        ),
-      ],
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AppColors.black,
+        selectedItemColor: AppColors.white,
+        unselectedItemColor: AppColors.textTertiary,
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
+        selectedLabelStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+        unselectedLabelStyle: TextStyle(fontSize: 10, fontWeight: FontWeight.w400),
+      ),
     );
   }
 }

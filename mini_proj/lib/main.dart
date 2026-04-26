@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'theme/app_theme.dart';
+import 'pages/splash_page.dart';
 import 'pages/home_page.dart';
 import 'pages/analysis_page.dart';
 import 'pages/profile_page.dart';
-import 'widgets/floating_nav_bar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,13 +28,13 @@ class OutfeedApp extends StatelessWidget {
     return MaterialApp(
       title: 'Outfeed',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
-      home: const MainShell(),
+      theme: AppTheme.dark,
+      home: const SplashPage(),
     );
   }
 }
 
-/// 메인 앱 셸 — IndexedStack + 플로팅 네비게이션 바
+/// 메인 셸 — iOS 스타일 Bottom Navigation + IndexedStack
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 
@@ -43,24 +43,47 @@ class MainShell extends StatefulWidget {
 }
 
 class _MainShellState extends State<MainShell> {
-  int _currentIndex = 0;
+  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.deepNavy,
-      extendBody: true,
+      backgroundColor: AppColors.black,
       body: IndexedStack(
-        index: _currentIndex,
+        index: _index,
         children: const [
           HomePage(),
           AnalysisPage(),
           ProfilePage(),
         ],
       ),
-      bottomNavigationBar: FloatingNavBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(color: AppColors.separator, width: 0.5),
+          ),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _index,
+          onTap: (i) => setState(() => _index = i),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: '홈',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.analytics_outlined),
+              activeIcon: Icon(Icons.analytics),
+              label: '분석',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: Icon(Icons.person),
+              label: '프로필',
+            ),
+          ],
+        ),
       ),
     );
   }
