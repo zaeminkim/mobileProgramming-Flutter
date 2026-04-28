@@ -51,11 +51,7 @@ class _MainShellState extends State<MainShell> {
       backgroundColor: AppColors.black,
       body: IndexedStack(
         index: _index,
-        children: const [
-          HomePage(),
-          AnalysisPage(),
-          ProfilePage(),
-        ],
+        children: const [HomePage(), AnalysisPage(), ProfilePage()],
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(

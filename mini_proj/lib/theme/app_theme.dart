@@ -18,16 +18,16 @@ class AppColors {
   static const textSecondary = Color(0xFF8E8E93);
   static const textTertiary = Color(0xFF636366);
 
-  // Brand Accent (제한적 사용)
-  static const accentBlue = Color(0xFF0000FF);
-  static const accentGreen = Color(0xFF00FF00);
+  // Brand Accent — OUTFEED 아이덴티티 컬러 (teal → green)
+  static const accentTeal = Color(0xFF2EC4B6);
+  static const accentGreen = Color(0xFF7FD48A);
 
   // Semantic
   static const separator = Color(0xFF38383A);
 
-  // Brand Gradient
+  // Brand Gradient — teal-cyan → soft-green
   static const brandGradient = LinearGradient(
-    colors: [accentBlue, accentGreen],
+    colors: [accentTeal, accentGreen],
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
@@ -40,10 +40,10 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.black,
-      primaryColor: AppColors.accentBlue,
+      primaryColor: AppColors.accentTeal,
       fontFamily: '.SF Pro Text',
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.accentBlue,
+        primary: AppColors.accentTeal,
         secondary: AppColors.accentGreen,
         surface: AppColors.surface,
         onPrimary: AppColors.white,
