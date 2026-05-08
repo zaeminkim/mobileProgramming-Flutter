@@ -69,7 +69,7 @@ class ExploreDetailPage extends StatelessWidget {
                           horizontal: 12, vertical: 5),
                         decoration: BoxDecoration(
                           color: AppColors.white.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(14),
                         ),
                         child: Text(category, style: const TextStyle(
                           color: AppColors.white, fontSize: 13,
@@ -124,7 +124,7 @@ class ExploreDetailPage extends StatelessWidget {
                           height: 48,
                           decoration: BoxDecoration(
                             color: AppColors.surface,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(24),
                           ),
                           child: const Center(
                             child: Text('저장하기', style: TextStyle(
@@ -138,7 +138,7 @@ class ExploreDetailPage extends StatelessWidget {
                         child: Container(
                           height: 48,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(24),
                             gradient: AppColors.brandGradient,
                           ),
                           child: const Center(

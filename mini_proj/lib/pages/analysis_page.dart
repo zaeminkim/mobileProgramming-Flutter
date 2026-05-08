@@ -154,10 +154,10 @@ class _AnalysisPageState extends State<AnalysisPage> {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 250),
                 margin: const EdgeInsets.symmetric(horizontal: 3),
-                width: isActive ? 20 : 6,
-                height: 6,
+                width: isActive ? 24 : 6,
+                height: 5,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(2.5),
                   color: isActive ? AppColors.accentTeal : AppColors.surfaceTertiary,
                 ),
               );
@@ -172,9 +172,9 @@ class _AnalysisPageState extends State<AnalysisPage> {
             onTap: () => _showUploadSheet(context),
             child: Container(
               width: double.infinity,
-              height: 54,
+              height: 56,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(28),
                 gradient: AppColors.brandGradient,
               ),
               child: Row(
@@ -206,7 +206,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
       builder: (_) => Container(
         decoration: const BoxDecoration(
           color: AppColors.surface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -308,10 +308,10 @@ class _AnalysisCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         gradient: data.gradient,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(28),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(28),
+        padding: const EdgeInsets.all(32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -518,7 +518,7 @@ class _UploadOption extends StatelessWidget {
         height: 80,
         decoration: BoxDecoration(
           color: AppColors.surfaceSecondary,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

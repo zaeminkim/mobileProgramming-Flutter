@@ -49,17 +49,17 @@ class _HomePageState extends State<HomePage>
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            height: 36,
+            height: 40,
             decoration: BoxDecoration(
               color: AppColors.surface,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(24),
             ),
             child: TabBar(
               controller: _tabCtrl,
               indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
                 color: AppColors.surfaceTertiary,
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(22),
               ),
               dividerColor: Colors.transparent,
               labelColor: AppColors.textPrimary,
@@ -333,7 +333,7 @@ class _DonutPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2;
-    const strokeWidth = 22.0;
+    const strokeWidth = 26.0;
     final rect = Rect.fromCircle(center: center, radius: radius - strokeWidth / 2);
 
     // 배경 원
@@ -353,7 +353,7 @@ class _DonutPainter extends CustomPainter {
         ..style = PaintingStyle.stroke
         ..strokeWidth = strokeWidth
         ..strokeCap = StrokeCap.round;
-      canvas.drawArc(rect, startAngle, sweepAngle - 0.04, false, paint);
+      canvas.drawArc(rect, startAngle, sweepAngle - 0.06, false, paint);
       startAngle += sweepAngle;
     }
   }
@@ -417,20 +417,20 @@ class _HorizontalBar extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  Container(
-                    height: 20,
+                   Container(
+                    height: 14,
                     decoration: BoxDecoration(
                       color: AppColors.surfaceTertiary,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                   ),
-                  FractionallySizedBox(
+                   FractionallySizedBox(
                     widthFactor: value,
                     child: Container(
-                      height: 20,
+                      height: 14,
                       decoration: BoxDecoration(
                         color: color,
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(7),
                       ),
                       alignment: Alignment.centerRight,
                       padding: const EdgeInsets.only(right: 6),
@@ -571,18 +571,15 @@ class _InsightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-      ),
+      padding: const EdgeInsets.all(24),
+      decoration: AppColors.cardDecoration(radius: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: const TextStyle(
             color: AppColors.textPrimary,
-            fontSize: 17,
-            fontWeight: FontWeight.w600,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
           )),
           const SizedBox(height: 8),
           child,
@@ -632,10 +629,10 @@ class _KeywordChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final isTop = rank <= 3;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: isTop ? AppColors.accentTeal.withValues(alpha: 0.15) : AppColors.surfaceTertiary,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         border: isTop ? Border.all(color: AppColors.accentTeal.withValues(alpha: 0.3)) : null,
       ),
       child: Text(label, style: TextStyle(
@@ -811,7 +808,7 @@ class _ExploreCard extends StatelessWidget {
             height: height,
             decoration: BoxDecoration(
               color: item.color,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Stack(
               children: [
@@ -868,7 +865,7 @@ class _ExploreCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                         decoration: BoxDecoration(
                           color: AppColors.white.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(item.category, style: const TextStyle(
                           color: AppColors.white, fontSize: 10,

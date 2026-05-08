@@ -65,10 +65,7 @@ class ProfilePage extends StatelessWidget {
         // 통계 요약
         Container(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(16),
-          ),
+          decoration: AppColors.cardDecoration(radius: 20),
           child: Row(
             children: const [
               _StatCell(value: '62', label: '오염도'),
@@ -87,7 +84,7 @@ class ProfilePage extends StatelessWidget {
             width: double.infinity,
             height: 54,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(28),
               gradient: AppColors.brandGradient,
             ),
             child: const Center(
@@ -104,10 +101,7 @@ class ProfilePage extends StatelessWidget {
 
         // 메뉴 리스트
         Container(
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(16),
-          ),
+          decoration: AppColors.cardDecoration(radius: 20),
           child: Column(
             children: const [
               _MenuItem(icon: Icons.tune, label: '관심사 재설정'),
@@ -147,8 +141,8 @@ class _StatCell extends StatelessWidget {
         children: [
           Text(value, style: const TextStyle(
             color: AppColors.textPrimary,
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
+            fontSize: 22,
+            fontWeight: FontWeight.w800,
           )),
           const SizedBox(height: 4),
           Text(label, style: const TextStyle(
@@ -207,7 +201,7 @@ class _ShareSheet extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

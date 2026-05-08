@@ -54,8 +54,9 @@ class _MainShellState extends State<MainShell> {
         children: const [HomePage(), AnalysisPage(), ProfilePage()],
       ),
       bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-          border: Border(
+        decoration: BoxDecoration(
+          color: AppColors.black.withValues(alpha: 0.92),
+          border: const Border(
             top: BorderSide(color: AppColors.separator, width: 0.5),
           ),
         ),
