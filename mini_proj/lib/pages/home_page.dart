@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../theme/app_theme.dart';
@@ -51,15 +52,18 @@ class _HomePageState extends State<HomePage>
           child: Container(
             height: 40,
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: AppColors.surfaceTertiary.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(24),
             ),
             child: TabBar(
               controller: _tabCtrl,
               indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
-                color: AppColors.surfaceTertiary,
+                color: Colors.white.withValues(alpha: 0.8),
                 borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 4, offset: const Offset(0, 2)),
+                ],
               ),
               dividerColor: Colors.transparent,
               labelColor: AppColors.textPrimary,
@@ -336,9 +340,9 @@ class _DonutPainter extends CustomPainter {
     const strokeWidth = 26.0;
     final rect = Rect.fromCircle(center: center, radius: radius - strokeWidth / 2);
 
-    // 배경 원
+    // 배경
     final bgPaint = Paint()
-      ..color = AppColors.surfaceTertiary
+      ..color = const Color(0xFFE8E7EF)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth;
     canvas.drawCircle(center, radius - strokeWidth / 2, bgPaint);
@@ -420,7 +424,7 @@ class _HorizontalBar extends StatelessWidget {
                    Container(
                     height: 14,
                     decoration: BoxDecoration(
-                      color: AppColors.surfaceTertiary,
+                      color: const Color(0xFFE8E7EF),
                       borderRadius: BorderRadius.circular(7),
                     ),
                   ),
@@ -435,7 +439,7 @@ class _HorizontalBar extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       padding: const EdgeInsets.only(right: 6),
                       child: Text('$pct%', style: const TextStyle(
-                        color: AppColors.black,
+                        color: Colors.white,
                         fontSize: 10,
                         fontWeight: FontWeight.w700,
                       )),
@@ -539,7 +543,7 @@ class _GenderRow extends StatelessWidget {
                   Container(
                     height: 6,
                     decoration: BoxDecoration(
-                      color: AppColors.surfaceTertiary,
+                      color: const Color(0xFFE8E7EF),
                       borderRadius: BorderRadius.circular(3),
                     ),
                   ),
@@ -570,20 +574,30 @@ class _InsightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: AppColors.cardDecoration(radius: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(
-            color: AppColors.textPrimary,
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-          )),
-          const SizedBox(height: 8),
-          child,
-        ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.6),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              )),
+              const SizedBox(height: 8),
+              child,
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -631,7 +645,7 @@ class _KeywordChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: isTop ? AppColors.accentTeal.withValues(alpha: 0.15) : AppColors.surfaceTertiary,
+        color: isTop ? AppColors.accentTeal.withValues(alpha: 0.12) : const Color(0xFFE8E7EF),
         borderRadius: BorderRadius.circular(20),
         border: isTop ? Border.all(color: AppColors.accentTeal.withValues(alpha: 0.3)) : null,
       ),
@@ -841,7 +855,7 @@ class _ExploreCard extends StatelessWidget {
                                 Container(
                                   height: 3,
                                   decoration: BoxDecoration(
-                                    color: AppColors.white.withValues(alpha: 0.15),
+                                    color: Colors.white.withValues(alpha: 0.25),
                                     borderRadius: BorderRadius.circular(1.5),
                                   ),
                                 ),

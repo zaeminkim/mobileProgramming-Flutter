@@ -36,10 +36,10 @@ class ProfilePage extends StatelessWidget {
                 child: Container(
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColors.black,
+                    color: Colors.white,
                   ),
                   child: const CircleAvatar(
-                    backgroundColor: AppColors.surface,
+                    backgroundColor: Color(0xFFF0EFF5),
                     radius: 40,
                     child: Icon(Icons.person, size: 36,
                       color: AppColors.textSecondary),
@@ -65,7 +65,18 @@ class ProfilePage extends StatelessWidget {
         // 통계 요약
         Container(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          decoration: AppColors.cardDecoration(radius: 20),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.6),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.04),
+                blurRadius: 16,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: Row(
             children: const [
               _StatCell(value: '62', label: '오염도'),
@@ -89,7 +100,7 @@ class ProfilePage extends StatelessWidget {
             ),
             child: const Center(
               child: Text('알고리즘 정체성 공유', style: TextStyle(
-                color: AppColors.black,
+                color: Colors.white,
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.5,
@@ -101,7 +112,18 @@ class ProfilePage extends StatelessWidget {
 
         // 메뉴 리스트
         Container(
-          decoration: AppColors.cardDecoration(radius: 20),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.6),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.04),
+                blurRadius: 16,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: Column(
             children: const [
               _MenuItem(icon: Icons.tune, label: '관심사 재설정'),
@@ -199,9 +221,10 @@ class _ShareSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.85),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -212,7 +235,7 @@ class _ShareSheet extends StatelessWidget {
             width: 36,
             height: 5,
             decoration: BoxDecoration(
-              color: AppColors.surfaceTertiary,
+              color: const Color(0xFFD0D0D8),
               borderRadius: BorderRadius.circular(2.5),
             ),
           ),

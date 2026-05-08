@@ -24,7 +24,7 @@ class ExploreDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final topPad = MediaQuery.of(context).padding.top;
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: AppColors.background,
       body: Column(
         children: [
           // Hero 이미지 영역 — 전체 폭으로 확대
@@ -123,8 +123,9 @@ class ExploreDetailPage extends StatelessWidget {
                         child: Container(
                           height: 48,
                           decoration: BoxDecoration(
-                            color: AppColors.surface,
+                            color: Colors.white.withValues(alpha: 0.6),
                             borderRadius: BorderRadius.circular(24),
+                            border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
                           ),
                           child: const Center(
                             child: Text('저장하기', style: TextStyle(
@@ -143,7 +144,7 @@ class ExploreDetailPage extends StatelessWidget {
                           ),
                           child: const Center(
                             child: Text('탐험하기', style: TextStyle(
-                              color: AppColors.black,
+                              color: Colors.white,
                               fontSize: 15, fontWeight: FontWeight.w700)),
                           ),
                         ),

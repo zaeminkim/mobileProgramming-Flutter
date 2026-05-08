@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'theme/app_theme.dart';
@@ -12,9 +13,9 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
   runApp(const OutfeedApp());
@@ -28,7 +29,7 @@ class OutfeedApp extends StatelessWidget {
     return MaterialApp(
       title: 'Outfeed',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.dark,
+      theme: AppTheme.light,
       home: const SplashPage(),
     );
   }
@@ -48,38 +49,44 @@ class _MainShellState extends State<MainShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: AppColors.background,
       body: IndexedStack(
         index: _index,
         children: const [HomePage(), AnalysisPage(), ProfilePage()],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: AppColors.black.withValues(alpha: 0.92),
-          border: const Border(
-            top: BorderSide(color: AppColors.separator, width: 0.5),
+      extendBody: true,
+      bottomNavigationBar: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.7),
+              border: const Border(
+                top: BorderSide(color: Color(0xFFE8E8EE), width: 0.5),
+              ),
+            ),
+            child: BottomNavigationBar(
+              currentIndex: _index,
+              onTap: (i) => setState(() => _index = i),
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined),
+                  activeIcon: Icon(Icons.home),
+                  label: '홈',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.analytics_outlined),
+                  activeIcon: Icon(Icons.analytics),
+                  label: '분석',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline),
+                  activeIcon: Icon(Icons.person),
+                  label: '프로필',
+                ),
+              ],
+            ),
           ),
-        ),
-        child: BottomNavigationBar(
-          currentIndex: _index,
-          onTap: (i) => setState(() => _index = i),
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: '홈',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.analytics_outlined),
-              activeIcon: Icon(Icons.analytics),
-              label: '분석',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              activeIcon: Icon(Icons.person),
-              label: '프로필',
-            ),
-          ],
         ),
       ),
     );

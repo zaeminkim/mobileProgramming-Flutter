@@ -1,31 +1,40 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Outfeed 디자인 시스템 — Apple HIG 미니멀리즘
+/// Outfeed 디자인 시스템 — 글래스모피즘 라이트 테마
 class AppColors {
   AppColors._();
 
   // Core
-  static const black = Color(0xFF0D0D0F);
   static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF1A1A2E);
 
-  // Surfaces (Premium Dark)
-  static const surface = Color(0xFF1A1A1E);
-  static const surfaceSecondary = Color(0xFF242429);
-  static const surfaceTertiary = Color(0xFF2E2E35);
+  // Background — 연한 라벤더-화이트
+  static const background = Color(0xFFF6F5FB);
+  static const backgroundPure = Color(0xFFFFFFFF);
+
+  // Surfaces (Glassmorphism)
+  static const surface = Color(0xFFFFFFFF);
+  static const surfaceSecondary = Color(0xFFF0EFF5);
+  static const surfaceTertiary = Color(0xFFE8E7EF);
+
+  // Glass surface colors (반투명)
+  static Color glassWhite = Colors.white.withValues(alpha: 0.55);
+  static Color glassBorder = Colors.white.withValues(alpha: 0.6);
 
   // Text
-  static const textPrimary = Color(0xFFFFFFFF);
-  static const textSecondary = Color(0xFF9E9EA4);
-  static const textTertiary = Color(0xFF636369);
+  static const textPrimary = Color(0xFF1A1A2E);
+  static const textSecondary = Color(0xFF6B6B80);
+  static const textTertiary = Color(0xFF9E9EB0);
 
-  // Brand Accent — OUTFEED 아이덴티티 컬러 (teal → green)
+  // Brand Accent — 기존 시그니처 컬러 유지 (teal → green)
   static const accentTeal = Color(0xFF2EC4B6);
   static const accentGreen = Color(0xFF7FD48A);
   static const accentMint = Color(0xFF6FEDD6);
 
   // Semantic
-  static const separator = Color(0xFF252528);
+  static const separator = Color(0xFFE8E8EE);
 
   // Brand Gradient — teal-cyan → soft-green
   static const brandGradient = LinearGradient(
@@ -41,21 +50,80 @@ class AppColors {
     end: Alignment.bottomRight,
   );
 
-  /// 카드 기본 BoxDecoration
+  /// 글래스모피즘 BoxDecoration — BackdropFilter와 함께 사용
+  static BoxDecoration glassDecoration({
+    double radius = 20,
+    Color? color,
+    double opacity = 0.55,
+  }) {
+    return BoxDecoration(
+      color: color ?? Colors.white.withValues(alpha: opacity),
+      borderRadius: BorderRadius.circular(radius),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.6),
+        width: 1,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.05),
+          blurRadius: 20,
+          offset: const Offset(0, 8),
+        ),
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.02),
+          blurRadius: 6,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    );
+  }
+
+  /// 카드 기본 BoxDecoration (글래스모피즘 스타일)
   static BoxDecoration cardDecoration({
     double radius = 20,
     Color? color,
   }) {
-    return BoxDecoration(
-      color: color ?? surface,
-      borderRadius: BorderRadius.circular(radius),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.25),
-          blurRadius: 12,
-          offset: const Offset(0, 4),
+    return glassDecoration(radius: radius, color: color);
+  }
+}
+
+/// 글래스모피즘 컨테이너 위젯 — BackdropFilter 포함
+class GlassContainer extends StatelessWidget {
+  final Widget child;
+  final double radius;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final double blur;
+  final double opacity;
+
+  const GlassContainer({
+    super.key,
+    required this.child,
+    this.radius = 20,
+    this.padding,
+    this.margin,
+    this.blur = 20,
+    this.opacity = 0.55,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radius),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+          child: Container(
+            padding: padding,
+            decoration: AppColors.glassDecoration(
+              radius: radius,
+              opacity: opacity,
+            ),
+            child: child,
+          ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -63,17 +131,17 @@ class AppColors {
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get dark {
+  static ThemeData get light {
     final baseTextTheme = GoogleFonts.interTextTheme(
-      ThemeData.dark().textTheme,
+      ThemeData.light().textTheme,
     );
 
     return ThemeData(
-      brightness: Brightness.dark,
-      scaffoldBackgroundColor: AppColors.black,
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: AppColors.background,
       primaryColor: AppColors.accentTeal,
       fontFamily: GoogleFonts.inter().fontFamily,
-      colorScheme: const ColorScheme.dark(
+      colorScheme: const ColorScheme.light(
         primary: AppColors.accentTeal,
         secondary: AppColors.accentGreen,
         surface: AppColors.surface,
@@ -132,7 +200,7 @@ class AppTheme {
         scrolledUnderElevation: 0,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: AppColors.black,
+        backgroundColor: Colors.transparent,
         selectedItemColor: AppColors.accentTeal,
         unselectedItemColor: AppColors.textTertiary,
         type: BottomNavigationBarType.fixed,
@@ -142,4 +210,7 @@ class AppTheme {
       ),
     );
   }
+
+  /// Legacy alias
+  static ThemeData get dark => light;
 }

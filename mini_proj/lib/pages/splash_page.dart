@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 import '../main.dart';
 
-/// 스플래시 화면 — 블랙 배경, 중앙 로고 + OUTFEED 텍스트
+/// 스플래시 화면 — 화이트 배경, 중앙 로고 + OUTFEED 텍스트
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -55,7 +55,7 @@ class _SplashPageState extends State<SplashPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: AppColors.backgroundPure,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -73,7 +73,7 @@ class _SplashPageState extends State<SplashPage>
               ),
             ),
             const SizedBox(height: 24),
-            // OUTFEED 텍스트 — "OUT" 흰색 + "FEED" 그라디언트
+            // OUTFEED 텍스트 — "OUT" 다크 + "FEED" 그라디언트
             FadeTransition(
               opacity: _textFade,
               child: Row(
@@ -82,7 +82,7 @@ class _SplashPageState extends State<SplashPage>
                   const Text(
                     'OUT',
                     style: TextStyle(
-                      color: AppColors.white,
+                      color: AppColors.textPrimary,
                       fontSize: 28,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 4,

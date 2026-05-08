@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
@@ -111,7 +112,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
               Icon(Icons.chevron_left,
                 color: _currentPage > 0
                     ? AppColors.textSecondary
-                    : AppColors.surfaceTertiary,
+                    : AppColors.textTertiary,
                 size: 20,
               ),
               const SizedBox(width: 4),
@@ -121,7 +122,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
               Icon(Icons.chevron_right,
                 color: _currentPage < _cards.length - 1
                     ? AppColors.textSecondary
-                    : AppColors.surfaceTertiary,
+                    : AppColors.textTertiary,
                 size: 20,
               ),
             ],
@@ -158,7 +159,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 height: 5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2.5),
-                  color: isActive ? AppColors.accentTeal : AppColors.surfaceTertiary,
+                  color: isActive ? AppColors.accentTeal : const Color(0xFFE0E0E8),
                 ),
               );
             }),
@@ -181,10 +182,10 @@ class _AnalysisPageState extends State<AnalysisPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   Icon(Icons.add_photo_alternate_outlined,
-                    color: AppColors.black, size: 22),
+                    color: Colors.white, size: 22),
                   SizedBox(width: 10),
                   Text('스크린샷 업로드하여 분석', style: TextStyle(
-                    color: AppColors.black,
+                    color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                   )),
@@ -203,10 +204,15 @@ class _AnalysisPageState extends State<AnalysisPage> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => Container(
-        decoration: const BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      builder: (_) => ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+          child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.85),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -215,7 +221,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
             Container(
               width: 36, height: 5,
               decoration: BoxDecoration(
-                color: AppColors.surfaceTertiary,
+                color: const Color(0xFFD0D0D8),
                 borderRadius: BorderRadius.circular(2.5),
               ),
             ),
@@ -257,6 +263,8 @@ class _AnalysisPageState extends State<AnalysisPage> {
             ),
             SizedBox(height: MediaQuery.of(context).padding.bottom + 24),
           ],
+        ),
+      ),
         ),
       ),
     );
@@ -517,7 +525,7 @@ class _UploadOption extends StatelessWidget {
       child: Container(
         height: 80,
         decoration: BoxDecoration(
-          color: AppColors.surfaceSecondary,
+          color: const Color(0xFFF0EFF5),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
