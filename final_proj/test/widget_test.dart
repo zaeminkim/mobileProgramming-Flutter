@@ -1,30 +1,72 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:final_proj/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:final_proj/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('sport flow opens home tabs and profile', (tester) async {
+    await tester.pumpWidget(const SportPickApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('스포츠를 즐길\n준비가 되셨나요?'), findsOneWidget);
+    expect(find.text('선택하기'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.text('선택하기'));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('모바일 티켓'), findsOneWidget);
+    expect(find.text('AR'), findsOneWidget);
+    expect(find.text('편의'), findsOneWidget);
+    expect(find.byType(Image), findsWidgets);
+
+    final ticketOrigin = tester.getTopLeft(
+      find.byKey(const ValueKey('mobileTicket')),
+    );
+    await tester.tapAt(ticketOrigin + const Offset(24, 24));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const ValueKey('ticketOverlay')), findsOneWidget);
+
+    final overlayOrigin = tester.getTopLeft(
+      find.byKey(const ValueKey('ticketOverlay')),
+    );
+    await tester.tapAt(overlayOrigin + const Offset(4, 4));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const ValueKey('ticketOverlay')), findsNothing);
+
+    await tester.tap(find.text('AR'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('AR 어시스턴트 사용하기'), findsOneWidget);
+
+    await tester.tap(find.text('편의'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(Image), findsWidgets);
+
+    await tester.tap(find.text('프로필'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('마이페이지'), findsOneWidget);
+    expect(find.text('설정'), findsOneWidget);
+    expect(find.text('스포츠 사용자1'), findsOneWidget);
+    expect(find.text('내 정보'), findsOneWidget);
+
+    await tester.tap(find.text('설정'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('푸시 알림 설정'), findsOneWidget);
+    expect(find.text('기본 스포츠'), findsOneWidget);
+    expect(find.text('앱 버전'), findsOneWidget);
+
+    await tester.drag(find.byType(Scrollable).last, const Offset(0, -260));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(Switch).last);
+    await tester.pumpAndSettle();
+
+    final darkModeSwitch = tester.widget<Switch>(find.byType(Switch).last);
+    expect(darkModeSwitch.value, isTrue);
+
+    expect(find.text('경기'), findsOneWidget);
   });
 }

@@ -1,17 +1,39 @@
-# final_proj
+# Sportoo
 
-A new Flutter project.
+Sportoo는 스포츠 경기 관람 경험을 더 편리하게 만드는 Flutter 기반 모바일 애플리케이션입니다. 사용자는 시작 화면에서 원하는 스포츠를 선택한 뒤, 모바일 티켓 확인, AR 관람 보조, 경기장 편의 정보, 프로필 및 설정 기능을 이용할 수 있습니다.
 
-## Getting Started
+## 프로그램 개요
 
-This project is a starting point for a Flutter application.
+Sportoo는 경기장 방문 전후에 필요한 정보를 한 화면 흐름 안에서 제공하는 것을 목표로 합니다. 스포츠 선택 화면에서 앱을 시작하고, 홈 화면에서는 모바일 티켓, AR 어시스턴트, 편의 시설 안내를 탭 형태로 전환하며 사용할 수 있습니다.
 
-A few resources to get you started if this is your first Flutter project:
+## 주요 기능 설명
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- 스포츠 선택: 축구, 농구, 배구, 야구 카드를 좌우로 스와이프하여 선택합니다.
+- 모바일 티켓: 예시 티켓 이미지를 확인하고, 티켓을 터치하면 확대해서 볼 수 있습니다.
+- AR 어시스턴트: AR 안내 화면에서 버튼을 누르면 기기의 카메라가 실행됩니다.
+- 편의 정보: 경기장 구역 및 시설 안내 이미지를 확인할 수 있습니다.
+- 프로필: 사용자 정보, 리뷰, 문의, 약관, 로그아웃 메뉴를 제공합니다.
+- 설정: 푸시 알림, 이벤트 알림, 위치 정보 사용, 다크모드, 앱 버전 정보를 제공합니다.
+- 다크모드: 설정 화면의 다크모드 스위치를 통해 실제 앱 테마를 밝은 모드와 어두운 모드로 전환합니다.
+- 앱 브랜딩: Sportoo 전용 앱 아이콘과 네이티브 스플래시 화면을 적용했습니다.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 개발 환경
+
+- Flutter
+- Dart
+- Android / iOS 지원
+
+## 사용 패키지
+
+- `image_picker`: AR 어시스턴트 버튼을 통한 카메라 실행
+- `flutter_launcher_icons`: 앱 아이콘 생성
+- `flutter_native_splash`: 네이티브 스플래시 화면 생성
+- `flutter_lints`: Flutter 권장 lint 규칙 적용
+
+## 라이센스
+
+이 프로젝트는 MIT License를 기준으로 사용할 수 있습니다.
+
+Copyright (c) 2026 Sportoo
+
+본 소프트웨어는 학습 및 포트폴리오 목적의 프로젝트로 제공됩니다. 포함된 이미지 및 폰트 에셋은 각 원 저작권자의 라이센스 정책을 따릅니다.

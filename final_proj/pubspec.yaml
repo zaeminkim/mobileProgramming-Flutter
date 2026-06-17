@@ -34,6 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  image_picker: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +46,27 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.7
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: asset/app/sportoo_icon.png
+  adaptive_icon_background: "#111820"
+  adaptive_icon_foreground: asset/app/sportoo_icon.png
+  remove_alpha_ios: true
+
+flutter_native_splash:
+  color: "#111820"
+  color_dark: "#111820"
+  image: asset/app/sportoo_icon.png
+  image_dark: asset/app/sportoo_icon.png
+  android_12:
+    color: "#111820"
+    color_dark: "#111820"
+    image: asset/app/sportoo_icon.png
+    image_dark: asset/app/sportoo_icon.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -56,6 +78,27 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - asset/sports/
+    - asset/home/
+    - asset/app/
+
+  fonts:
+    - family: Pretendard
+      fonts:
+        - asset: asset/fonts/PretendardJP-Regular.otf
+          weight: 400
+        - asset: asset/fonts/PretendardJP-Medium.otf
+          weight: 500
+        - asset: asset/fonts/PretendardJP-SemiBold.otf
+          weight: 600
+        - asset: asset/fonts/PretendardJP-Bold.otf
+          weight: 700
+        - asset: asset/fonts/PretendardJP-ExtraBold.otf
+          weight: 800
+        - asset: asset/fonts/PretendardJP-Black.otf
+          weight: 900
 
   # To add assets to your application, add an assets section, like this:
   # assets:
